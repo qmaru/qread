@@ -1,0 +1,56 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin : 0;
+  padding: 0;
+}
+
+.app-container {
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+}
+
+.card {
+  background   : #fff;
+  padding      : 20px;
+  border-radius: 6px;
+  box-shadow   : 0 2px 6px rgba(0, 0, 0, 0.1);
+  width        : 300px;
+}
+
+.card h3 {
+  margin    : 0 0 10px;
+  text-align: center;
+}
+
+.card input,
+.card select,
+.card button {
+  width        : 100%;
+  padding      : 8px;
+  margin-bottom: 10px;
+}
+
+.card input,
+.card select {
+  border       : 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.card button {
+  background   : #007bff;
+  color        : #fff;
+  border       : none;
+  border-radius: 4px;
+  cursor       : pointer;
+}
+
+.card button:disabled {
+  background: #aaa;
+  cursor    : not-allowed;
+}
