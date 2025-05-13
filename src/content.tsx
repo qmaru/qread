@@ -33,6 +33,10 @@ chrome.runtime.onMessage.addListener(async (message) => {
     } catch (e) {
       console.error("翻译失败：", e)
     }
+  } else if (message.type === "REWRITE") {
+    console.log(message)
+  } else if (message.type === "SUMMARY") {
+    console.log(message)
   }
 })
 
