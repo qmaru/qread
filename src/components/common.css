@@ -81,3 +81,58 @@
         transform: rotate(360deg);
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color           : #e0e0e0;
+    }
+
+    .card {
+        background: #1e1e1e;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .card h3 {
+        color: #e0e0e0;
+    }
+
+    .card input,
+    .card select,
+    .rewrite-main textarea {
+        background: #2c2c2c;
+        color     : #e0e0e0;
+        border    : 1px solid #555;
+    }
+
+    .card button,
+    .rewrite-main button {
+        background: #3391ff;
+        color     : #fff;
+    }
+
+    .card button:disabled,
+    .rewrite-main button:disabled {
+        background: #555;
+        color     : #aaa;
+    }
+
+    .rewrite-main textarea::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .rewrite-main textarea::-webkit-scrollbar-thumb {
+        background-color: #555;
+        border-radius   : 4px;
+    }
+
+    .tab {
+        background: #222;
+        color     : #ddd;
+    }
+
+    .tab.active {
+        background   : #1e1e1e;
+        border-bottom: 2px solid #4a90e2;
+    }
+}
