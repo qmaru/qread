@@ -23,19 +23,26 @@ const Chat = () => {
     // history
     const history = [...outputMessages, userMessage].slice(-6)
 
-    startChating(async () => {
-      const chunks = await localChatStream(history)
-      for await (const chunk of chunks) {
-        setOutputMessages(prev => {
-          const last = prev[prev.length - 1]
-          if (last?.role === "assistant") {
-            return [...prev.slice(0, -1), { ...last, content: last.content + chunk }]
-          } else {
-            return [...prev, { role: "assistant", content: chunk }]
-          }
-        })
-      }
-    })
+    try {
+      startChating(async () => {
+        const chunks = await localChatStream(history)
+        for await (const chunk of chunks) {
+          setOutputMessages(prev => {
+            const last = prev[prev.length - 1]
+            if (last?.role === "assistant") {
+              return [...prev.slice(0, -1), { ...last, content: last.content + chunk }]
+            } else {
+              return [...prev, { role: "assistant", content: chunk }]
+            }
+          })
+        }
+      })
+    } catch (err: any) {
+      setOutputMessages(prev => [
+        ...prev,
+        { role: "assistant", content: err.message || "Error occurred" },
+      ])
+    }
   }
 
   useEffect(() => {

@@ -19,7 +19,9 @@ const createSession = async () => {
 
 export const localChatStream = async (text: Message[]) => {
     let session = await createSession()
-    if (!session) return chrome.i18n.getMessage("chat_message_init_error")
+    if (!session) {
+        throw new Error(chrome.i18n.getMessage("chat_message_init_error"))
+    }
 
     const stream = session.promptStreaming(text)
     return stream
