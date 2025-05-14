@@ -73,7 +73,7 @@ const Rewrite = () => {
           <button onClick={CallRewrite} disabled={!inputText.trim() || loading}>
             {loading ? (
               <>
-                <span className="rewrite-btn-loading" /> 重写中...
+                <span className="common-btn-loading" /> 重写中...
               </>
             ) : (
               "执行重写"

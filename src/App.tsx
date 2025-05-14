@@ -3,42 +3,42 @@ import "./App.css"
 
 import Translate from "./components/Translate"
 import Rewrite from "./components/Rewrite"
-import Prompt from "./components/Prompt"
+import Chat from "./components/Chat"
 
-type Tab = "translate" | "rewrite" | "prompt"
+type Tab = "translate" | "rewrite" | "chat"
 
 
 function App() {
-  const [activeTab, setActiveTab] = useState<Tab>("translate")
+  const [activeTab, setActiveTab] = useState<Tab>("chat")
 
   return (
     <div className="app-container">
 
       <div className="tab-nav">
         <button
-          className={activeTab === 'translate' ? 'tab active' : 'tab'}
-          onClick={() => setActiveTab('translate')}
+          className={activeTab === "translate" ? "tab active" : "tab"}
+          onClick={() => setActiveTab("translate")}
         >
           翻译
         </button>
         <button
-          className={activeTab === 'rewrite' ? 'tab active' : 'tab'}
-          onClick={() => setActiveTab('rewrite')}
+          className={activeTab === "rewrite" ? "tab active" : "tab"}
+          onClick={() => setActiveTab("rewrite")}
         >
           重写
         </button>
         <button
-          className={activeTab === 'prompt' ? 'tab active' : 'tab'}
-          onClick={() => setActiveTab('prompt')}
+          className={activeTab === "chat" ? "tab active" : "tab"}
+          onClick={() => setActiveTab("chat")}
         >
-          生成
+          对话
         </button>
       </div>
 
       <div className="tab-content">
         {activeTab === "translate" && <Translate />}
         {activeTab === "rewrite" && <Rewrite />}
-        {activeTab === "prompt" && <Prompt />}
+        {activeTab === "chat" && <Chat />}
       </div>
     </div>
   )
