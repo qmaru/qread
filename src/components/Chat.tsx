@@ -64,7 +64,7 @@ const Chat = () => {
 
       <footer className="chat-footer">
         <div className="chat-textarea">
-          <textarea placeholder="开始聊天" rows={1} value={inputMessage} onChange={inputOnChange}>
+          <textarea placeholder="有什么可以帮忙的？" rows={1} value={inputMessage} onChange={inputOnChange}>
           </textarea></div>
         <button onClick={CallCaht} disabled={!inputMessage.trim() || isChating}>
           {isChating ? <span className="common-btn-loading" /> : "发送"}

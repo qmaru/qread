@@ -7,7 +7,6 @@ import Chat from "./components/Chat"
 
 type Tab = "translate" | "rewrite" | "chat"
 
-
 function App() {
   const [activeTab, setActiveTab] = useState<Tab>("chat")
 
@@ -15,23 +14,14 @@ function App() {
     <div className="app-container">
 
       <div className="tab-nav">
-        <button
-          className={activeTab === "translate" ? "tab active" : "tab"}
-          onClick={() => setActiveTab("translate")}
-        >
-          翻译
+        <button className={activeTab === "chat" ? "tab active" : "tab"} onClick={() => setActiveTab("chat")}>
+          对话
         </button>
-        <button
-          className={activeTab === "rewrite" ? "tab active" : "tab"}
-          onClick={() => setActiveTab("rewrite")}
-        >
+        <button className={activeTab === "rewrite" ? "tab active" : "tab"} onClick={() => setActiveTab("rewrite")}>
           重写
         </button>
-        <button
-          className={activeTab === "chat" ? "tab active" : "tab"}
-          onClick={() => setActiveTab("chat")}
-        >
-          对话
+        <button className={activeTab === "translate" ? "tab active" : "tab"} onClick={() => setActiveTab("translate")}>
+          翻译
         </button>
       </div>
 
