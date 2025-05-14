@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "qRead",
+  "name": "qread",
   "version": "1.0.0",
   "description": "Toolset based on local AI models.",
   "permissions": [
@@ -23,7 +23,7 @@
     }
   ],
   "action": {
-    "default_title": "qRead",
+    "default_title": "qread",
     "default_popup": "index.html"
   },
   "icons": {

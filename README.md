@@ -1,4 +1,4 @@
-# qRead
+# qread
 
 client-side ai of gemini-nano
 

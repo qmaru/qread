@@ -1,7 +1,7 @@
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "qred-translate",
-    title: "qRead Translate",
+    title: "qread Translate",
     contexts: ["selection"]
   })
 })
@@ -9,7 +9,7 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "qred-rewrite",
-    title: "qRead Rewrite",
+    title: "qread Rewrite",
     contexts: ["selection"]
   })
 })
@@ -17,7 +17,7 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "qred-summary",
-    title: "qRead Summary",
+    title: "qread Summary",
     contexts: ["selection"]
   })
 })
