@@ -8,18 +8,29 @@ const showTranslationPopup = (translatedText: string) => {
 
     const range = selection.getRangeAt(0)
     const rect = range.getBoundingClientRect()
-
     const div = document.createElement("div")
-    div.innerText = translatedText
-    div.className = "translator-popup"
     div.style.top = `${rect.top + window.scrollY - 40}px`
     div.style.left = `${rect.left + window.scrollX}px`
-
+    div.innerText = translatedText
+    div.className = "translator-popup"
+    div.addEventListener("mousedown", (e) => {
+      e.stopPropagation()
+    })
+    div.addEventListener("click", (e) => {
+      e.stopPropagation()
+    })
     document.body.appendChild(div)
 
-    setTimeout(() => {
+    let autoRemoveTimer = setTimeout(() => {
       div.remove()
     }, 5000)
+
+    div.addEventListener("mouseenter", () => clearTimeout(autoRemoveTimer))
+    div.addEventListener("mouseleave", () => {
+      autoRemoveTimer = setTimeout(() => {
+        div.remove()
+      }, 3000)
+    })
   }
 }
 
@@ -41,6 +52,9 @@ chrome.runtime.onMessage.addListener(async (message) => {
 })
 
 // 点击空白移除旧的翻译框
-document.addEventListener("click", () => {
-  document.querySelectorAll(".translator-popup").forEach(el => el.remove())
+document.addEventListener("mousedown", (event) => {
+  const target = event.target as HTMLElement | null
+  if (!target || !target.closest(".translator-popup")) {
+    document.querySelectorAll(".translator-popup").forEach(el => el.remove())
+  }
 })
