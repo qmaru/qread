@@ -42,7 +42,8 @@ chrome.runtime.onMessage.addListener(async (message) => {
       const translated = await localTranslate(text, lang)
       showTranslationPopup(translated)
     } catch (e) {
-      console.error("翻译失败：", e)
+      const errmsg = chrome.i18n.getMessage("translate_message_get_error")
+      console.error(errmsg + ":  ", e)
     }
   }
 })

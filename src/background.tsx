@@ -1,7 +1,7 @@
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "qred-translate",
-    title: "qread translate",
+    title: chrome.i18n.getMessage("translate_element_popup_title"),
     contexts: ["selection"]
   })
 })

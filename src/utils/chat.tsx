@@ -3,7 +3,7 @@ export type Message = {
     content: string
 }
 
-const systemPrompt = "你是一个高效简洁的助手，只提供直接、明确、有用的回答，不啰嗦、不客套。"
+const systemPrompt = chrome.i18n.getMessage("chat_message_system_prompt")
 
 const createSession = async () => {
     try {
@@ -19,7 +19,7 @@ const createSession = async () => {
 
 export const localChatStream = async (text: Message[]) => {
     let session = await createSession()
-    if (!session) return "无法对话，客户端不支持端侧模型"
+    if (!session) return chrome.i18n.getMessage("chat_message_init_error")
 
     const stream = session.promptStreaming(text)
     return stream
@@ -27,7 +27,7 @@ export const localChatStream = async (text: Message[]) => {
 
 export const localChat = async (text: Message[]): Promise<string> => {
     let session = await createSession()
-    if (!session) return "无法对话，客户端不支持端侧模型"
+    if (!session) return chrome.i18n.getMessage("chat_message_init_error")
 
     const result = await session.prompt(text)
     return result

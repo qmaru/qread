@@ -8,16 +8,16 @@ interface styleData {
 }
 
 const styles: styleData[] = [
-  { label: "更简洁", value: "Make the text more concise and to the point." },
-  { label: "更正式", value: "Rewrite in a more formal and professional tone." },
-  { label: "更亲切", value: "Make the tone more friendly and approachable." },
-  { label: "更具说服力", value: "Rewrite to be more persuasive and convincing." },
-  { label: "总结", value: "Summarize the key points clearly and briefly." },
+  { label: chrome.i18n.getMessage("rewrite_element_select_label_concise"), value: "Make the text more concise and to the point." },
+  { label: chrome.i18n.getMessage("rewrite_element_select_label_formal"), value: "Rewrite in a more formal and professional tone." },
+  { label: chrome.i18n.getMessage("rewrite_element_select_label_friendly"), value: "Make the tone more friendly and approachable." },
+  { label: chrome.i18n.getMessage("rewrite_element_select_label_persuasive"), value: "Rewrite to be more persuasive and convincing." },
+  { label: chrome.i18n.getMessage("rewrite_element_select_label_summary"), value: "Summarize the key points clearly and briefly." },
 ]
 
 const Rewrite = () => {
   const [inputText, setInputText] = useState<string>("")
-  const [outputStyle, setOutputStyle] = useState<string>("更简洁")
+  const [outputStyle, setOutputStyle] = useState<string>(chrome.i18n.getMessage("rewrite_element_select_label_concise"))
   const [outputText, setOutputText] = useState<string>("")
   const [isRewriting, startRewriting] = useTransition()
 
@@ -52,7 +52,7 @@ const Rewrite = () => {
   return (
     <div className="card">
       <header>
-        <h3>选择重写风格</h3>
+        <h3>{chrome.i18n.getMessage("rewrite_element_select_label_style")}</h3>
         <select
           id="language"
           value={outputStyle}
@@ -67,21 +67,21 @@ const Rewrite = () => {
       </header>
 
       <main className="rewrite-main">
-        <textarea placeholder="原文" onChange={inputOnChange} value={inputText} />
+        <textarea placeholder={chrome.i18n.getMessage("rewrite_element_textarea_placeholder_title_input")} onChange={inputOnChange} value={inputText} />
 
         <div className="rewrite-btn">
           <button onClick={CallRewrite} disabled={!inputText.trim() || isRewriting}>
             {isRewriting ? (
               <>
-                <span className="common-btn-loading" /> 重写中...
+                <span className="common-btn-loading" /> {chrome.i18n.getMessage("rewrite_element_button_title_loading")}
               </>
             ) : (
-              "执行重写"
+              chrome.i18n.getMessage("rewrite_element_button_title_title")
             )}
           </button>
         </div>
 
-        <textarea placeholder="重写" readOnly onChange={outputOnChange} value={outputText} />
+        <textarea placeholder={chrome.i18n.getMessage("rewrite_element_textarea_placeholder_title_output")} readOnly onChange={outputOnChange} value={outputText} />
       </main>
     </div>
   )

@@ -5,7 +5,7 @@ export const localTranslate = async (text: string, targetLang: string) => {
         // @ts-ignore
         detector = await LanguageDetector.create()
     } catch {
-        return "无法翻译，客户端不支持端侧模型"
+        return chrome.i18n.getMessage("detector_message_init_error")
     }
 
     let sourceLan = ""
@@ -28,9 +28,10 @@ export const localTranslate = async (text: string, targetLang: string) => {
             }
         }
     } catch (e) {
+        const errmsg = chrome.i18n.getMessage("detector_message_get_error")
         console.log(e)
-        console.log("无法识别该语言: ", text)
-        return "无法识别该语言"
+        console.log(errmsg + ": ", text)
+        return errmsg
     }
 
     try {
@@ -42,7 +43,8 @@ export const localTranslate = async (text: string, targetLang: string) => {
         const translated = await translator.translate(text)
         return warnMsg + translated
     } catch (e) {
-        console.log("翻译出错: ", e)
-        return "翻译出错"
+        const errmsg = chrome.i18n.getMessage("translate_message_get_error")
+        console.log(errmsg + ": ", e)
+        return errmsg
     }
 }

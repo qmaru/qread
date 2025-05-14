@@ -1,0 +1,136 @@
+{
+  "extension_name": {
+    "message": "qread"
+  },
+  "extension_description": {
+    "message": "Toolset based on local AI models."
+  },
+  "chat_element_tab_title": {
+    "message": "Chat",
+    "description": "Chat tab"
+  },
+  "chat_element_text_greeting": {
+    "message": "How can I help you?",
+    "description": "Homepage greeting"
+  },
+  "chat_element_button_title_send": {
+    "message": "Send",
+    "description": "Send button"
+  },
+  "chat_message_system_prompt": {
+    "message": "You are an efficient and concise assistant. Provide direct, clear, and useful answers only—no verbosity or pleasantries.",
+    "description": "System prompt for the conversation"
+  },
+  "chat_message_init_error": {
+    "message": "Unable to start conversation. The client does not support on-device models.",
+    "description": "Error when initializing the chat API"
+  },
+  "rewrite_element_tab_title": {
+    "message": "Rewrite",
+    "description": "Rewrite tab"
+  },
+  "rewrite_message_init_error": {
+    "message": "Unable to rewrite. The client does not support on-device models.",
+    "description": "Error when initializing the rewrite API"
+  },
+  "rewrite_element_select_label_style": {
+    "message": "Select rewrite style",
+    "description": "Label for rewrite style"
+  },
+  "rewrite_element_select_label_concise": {
+    "message": "Concise",
+    "description": "Option label for making text more concise and clear"
+  },
+  "rewrite_element_select_label_formal": {
+    "message": "Formal",
+    "description": "Option label for making text more formal and professional"
+  },
+  "rewrite_element_select_label_friendly": {
+    "message": "Friendly",
+    "description": "Option label for making text more friendly"
+  },
+  "rewrite_element_select_label_persuasive": {
+    "message": "Persuasive",
+    "description": "Option label for making text more persuasive"
+  },
+  "rewrite_element_select_label_summary": {
+    "message": "Summary",
+    "description": "Option label for summarizing text"
+  },
+  "rewrite_element_textarea_placeholder_title_input": {
+    "message": "Original",
+    "description": "Placeholder for rewrite input"
+  },
+  "rewrite_element_textarea_placeholder_title_output": {
+    "message": "Rewritten",
+    "description": "Placeholder for rewrite output"
+  },
+  "rewrite_element_button_title_loading": {
+    "message": "Rewriting...",
+    "description": "Loading prompt during rewriting"
+  },
+  "rewrite_element_button_title_title": {
+    "message": "Start Rewriting",
+    "description": "Rewrite button"
+  },
+  "summarize_message_init_error": {
+    "message": "Unable to summarize. The client does not support on-device models.",
+    "description": "Error when initializing the summary API"
+  },
+  "translate_element_tab_title": {
+    "message": "Translate",
+    "description": "Translation tab"
+  },
+  "translate_element_select_label_style": {
+    "message": "Select target language",
+    "description": "Target language for translation"
+  },
+  "translate_element_h3_text": {
+    "message": "Test translation feature",
+    "description": "Translation section heading"
+  },
+  "translate_element_p_text": {
+    "message": "Enter text to see the translation result",
+    "description": "Prompt for translation input"
+  },
+  "translate_element_button_title_test": {
+    "message": "Test",
+    "description": "Test button for translation"
+  },
+  "translate_element_input_placeholder_title_result": {
+    "message": "Result",
+    "description": "Translation result placeholder"
+  },
+  "translate_element_select_label_Chinese": {
+    "message": "Chinese",
+    "description": "Target language"
+  },
+  "translate_element_select_label_English": {
+    "message": "English",
+    "description": "Target language"
+  },
+  "translate_element_select_label_Japanese": {
+    "message": "Japanese",
+    "description": "Target language"
+  },
+  "translate_element_select_label_France": {
+    "message": "French",
+    "description": "Target language"
+  },
+  "translate_element_popup_title": {
+    "message": "Q Intelligence Translation",
+    "description": "Translation menu title"
+  },
+  "detector_message_init_error": {
+    "message": "Unable to translate. The client does not support on-device models.",
+    "description": "Language detection API initialization error"
+  },
+  "detector_message_get_error": {
+    "message": "Unable to detect language",
+    "description": "Language detection error"
+  },
+  "translate_message_get_error": {
+    "message": "Translation error",
+    "description": "Translation API error"
+  }
+}

@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "qread",
+  "name": "__MSG_extension_name__",
   "version": "1.0.0",
-  "description": "Toolset based on local AI models.",
+  "description": "__MSG_extension_description__",
+  "default_locale": "en",
   "permissions": [
     "contextMenus",
     "storage",

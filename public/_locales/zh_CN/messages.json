@@ -1,0 +1,136 @@
+{
+  "extension_name": {
+    "message": "Q智阅"
+  },
+  "extension_description": {
+    "message": "一个基于本地 AI 模型的工具集。"
+  },
+  "chat_element_tab_title": {
+    "message": "对话",
+    "description": "对话标签"
+  },
+  "chat_element_text_greeting": {
+    "message": "有什么可以帮忙的？",
+    "description": "首页欢迎语"
+  },
+  "chat_element_button_title_send": {
+    "message": "发送",
+    "description": "发送按钮"
+  },
+  "chat_message_system_prompt": {
+    "message": "你是一个高效简洁的助手，只提供直接、明确、有用的回答，不啰嗦、不客套。",
+    "description": "对话的系统提示词"
+  },
+  "chat_message_init_error": {
+    "message": "无法对话，客户端不支持端侧模型",
+    "description": "对话API初始化失败的提示"
+  },
+  "rewrite_element_tab_title": {
+    "message": "重写",
+    "description": "重写标签"
+  },
+  "rewrite_message_init_error": {
+    "message": "无法重写，客户端不支持端侧模型",
+    "description": "重写API初始化失败的提示"
+  },
+  "rewrite_element_select_label_style": {
+    "message": "选择重写风格",
+    "description": "重写风格的标签"
+  },
+  "rewrite_element_select_label_concise": {
+    "message": "简洁",
+    "description": "使文本更简洁明了的选项标签"
+  },
+  "rewrite_element_select_label_formal": {
+    "message": "正式",
+    "description": "使文本更正式和专业的选项标签"
+  },
+  "rewrite_element_select_label_friendly": {
+    "message": "亲切",
+    "description": "使文本更亲切友好的选项标签"
+  },
+  "rewrite_element_select_label_persuasive": {
+    "message": "说服力",
+    "description": "使文本更有说服力的选项标签"
+  },
+  "rewrite_element_select_label_summary": {
+    "message": "总结",
+    "description": "将文本进行总结的选项标签"
+  },
+  "rewrite_element_textarea_placeholder_title_input": {
+    "message": "原文",
+    "description": "重写输入的提示"
+  },
+  "rewrite_element_textarea_placeholder_title_output": {
+    "message": "重写",
+    "description": "重写输出的提示"
+  },
+  "rewrite_element_button_title_loading": {
+    "message": "重写中...",
+    "description": "重写加载中的提示"
+  },
+  "rewrite_element_button_title_title": {
+    "message": "开始重写",
+    "description": "重写按钮"
+  },
+  "summarize_message_init_error": {
+    "message": "无法总结，客户端不支持端侧模型",
+    "description": "总结API初始化失败的提示"
+  },
+  "translate_element_tab_title": {
+    "message": "翻译",
+    "description": "翻译标签"
+  },
+  "translate_element_select_label_style": {
+    "message": "选择翻译的目标语言",
+    "description": "翻译的目标语言"
+  },
+  "translate_element_h3_text": {
+    "message": "测试翻译功能",
+    "description": "翻译的目标语言"
+  },
+  "translate_element_p_text": {
+    "message": "输入一段文字，查看翻译结果",
+    "description": "翻译的目标语言"
+  },
+  "translate_element_button_title_test": {
+    "message": "测试",
+    "description": "翻译的目标语言"
+  },
+  "translate_element_input_placeholder_title_result": {
+    "message": "结果",
+    "description": "翻译的目标语言"
+  },
+  "translate_element_select_label_Chinese": {
+    "message": "中文",
+    "description": "翻译的目标语言"
+  },
+  "translate_element_select_label_English": {
+    "message": "英文",
+    "description": "翻译的目标语言"
+  },
+  "translate_element_select_label_Japanese": {
+    "message": "日文",
+    "description": "翻译的目标语言"
+  },
+  "translate_element_select_label_France": {
+    "message": "法文",
+    "description": "翻译的目标语言"
+  },
+  "translate_element_popup_title": {
+    "message": "Q智阅翻译",
+    "description": "翻译菜单的标题"
+  },
+  "detector_message_init_error": {
+    "message": "无法翻译，客户端不支持端侧模型",
+    "description": "语言检测API初始化失败的提示"
+  },
+  "detector_message_get_error": {
+    "message": "无法识别该语言",
+    "description": "语言检测API错误提示"
+  },
+  "translate_message_get_error": {
+    "message": "翻译出错",
+    "description": "翻译API错误提示"
+  }
+}

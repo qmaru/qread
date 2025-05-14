@@ -50,10 +50,6 @@ const Chat = () => {
 
   return (
     <div className="card">
-      <header>
-        <h3>AI 聊天</h3>
-      </header>
-
       <main className="chat-wrapper" ref={containerRef}>
         {outputMessages.map((msg: Message, index: number) => (
           <div key={"msg" + index} className={`chat-message ${msg.role === "user" ? "user" : "assistant"}`}>
@@ -64,10 +60,10 @@ const Chat = () => {
 
       <footer className="chat-footer">
         <div className="chat-textarea">
-          <textarea placeholder="有什么可以帮忙的？" rows={1} value={inputMessage} onChange={inputOnChange}>
+          <textarea placeholder={chrome.i18n.getMessage("chat_element_text_greeting")} rows={1} value={inputMessage} onChange={inputOnChange}>
           </textarea></div>
         <button onClick={CallCaht} disabled={!inputMessage.trim() || isChating}>
-          {isChating ? <span className="common-btn-loading" /> : "发送"}
+          {isChating ? <span className="common-btn-loading" /> : chrome.i18n.getMessage("chat_element_button_title_send")}
         </button>
       </footer>
     </div>

@@ -9,10 +9,10 @@ interface languageData {
 }
 
 const languages: languageData[] = [
-  { label: "中文", value: "zh" },
-  { label: "英文", value: "en" },
-  { label: "日文", value: "ja" },
-  { label: "法文", value: "fr" },
+  { label: chrome.i18n.getMessage("translate_element_select_label_Chinese"), value: "zh" },
+  { label: chrome.i18n.getMessage("translate_element_select_label_English"), value: "en" },
+  { label: chrome.i18n.getMessage("translate_element_select_label_Japanese"), value: "ja" },
+  { label: chrome.i18n.getMessage("translate_element_select_label_France"), value: "fr" },
 ]
 
 const Translate = () => {
@@ -42,7 +42,7 @@ const Translate = () => {
   return (
     <div className="card">
       <header>
-        <h3>选择翻译目标语言</h3>
+        <h3>{chrome.i18n.getMessage("translate_element_select_label_style")}</h3>
         <select
           id="language"
           value={inputLanguage}
@@ -57,15 +57,15 @@ const Translate = () => {
       </header>
 
       <main>
-        <h3>测试翻译功能</h3>
-        <p>输入一段文字，查看翻译结果：</p>
-        <input type="text" placeholder="例如: Hello" value={inputText} onChange={inputOnChange} />
+        <h3>{chrome.i18n.getMessage("translate_element_h3_text")}</h3>
+        <p>{chrome.i18n.getMessage("translate_element_p_text")}</p>
+        <input type="text" placeholder="Hello" value={inputText} onChange={inputOnChange} />
 
         <div>
-          <button disabled={!inputText.trim() || isTranslating} onClick={CallTranslate}>测试翻译</button>
+          <button disabled={!inputText.trim() || isTranslating} onClick={CallTranslate}>{chrome.i18n.getMessage("translate_element_button_title_test")}</button>
         </div>
 
-        <input type="text" readOnly value={translated} placeholder="结果" />
+        <input type="text" readOnly value={translated} placeholder={chrome.i18n.getMessage("translate_element_input_placeholder_title_result")} />
       </main>
     </div>
   )

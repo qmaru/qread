@@ -5,7 +5,7 @@ export const localRewrite = async (text: string, style: string): Promise<string>
         // @ts-ignore
         rewriter = await Rewriter.create()
     } catch {
-        return "无法重写，客户端不支持端侧模型"
+        return chrome.i18n.getMessage("rewrite_message_init_error")
     }
 
     const result = await rewriter.rewrite(text, {
@@ -22,7 +22,7 @@ export const localSummarize = async (text: string): Promise<string> => {
         // @ts-ignore
         summarizer = await Summarizer.create({ type: "tl;dr" })
     } catch {
-        return "无法总结，客户端不支持端侧模型"
+        return chrome.i18n.getMessage("summarize_message_init_error")
     }
 
     const result = await summarizer.summarize(text)
