@@ -37,11 +37,8 @@ const Chat = () => {
           })
         }
       })
-    } catch (err: any) {
-      setOutputMessages(prev => [
-        ...prev,
-        { role: "assistant", content: err.message || "Error occurred" },
-      ])
+    } catch (e) {
+      console.log(e)
     }
   }
 
