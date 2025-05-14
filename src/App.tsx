@@ -1,52 +1,44 @@
-import { useState } from 'react'
-import { localTranslate } from './utils/translate'
-import './App.css'
+import { useState } from "react"
+import "./App.css"
+
+import Translate from "./components/Translate"
+import Rewrite from "./components/Rewrite"
+import Prompt from "./components/Prompt"
+
+type Tab = "translate" | "rewrite" | "prompt"
 
 
 function App() {
-  const [inputText, setInputText] = useState<string>("")
-  const [inputLanguage, setInputLanguage] = useState<string>("zh")
-  const [translated, setTranslated] = useState<string>("")
-
-  const inputOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputText(event.target.value)
-  }
-
-  const inputLanguageOnChange: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
-    setInputLanguage(e.target.value)
-  }
-
-  const CallTranslate = async () => {
-    if (!inputText.trim()) return
-
-    const result = await localTranslate(inputText, inputLanguage)
-    setTranslated(result)
-  }
+  const [activeTab, setActiveTab] = useState<Tab>("translate")
 
   return (
     <div className="app-container">
-      <div className="card">
-        <h3>选择翻译目标语言</h3>
-        <select
-          id="language"
-          value={inputLanguage}
-          onChange={inputLanguageOnChange}
+
+      <div className="tab-nav">
+        <button
+          className={activeTab === 'translate' ? 'tab active' : 'tab'}
+          onClick={() => setActiveTab('translate')}
         >
-          <option value="zh">中文</option>
-          <option value="en">英文</option>
-          <option value="ja">日文</option>
-          <option value="fr">法文</option>
-        </select>
+          翻译
+        </button>
+        <button
+          className={activeTab === 'rewrite' ? 'tab active' : 'tab'}
+          onClick={() => setActiveTab('rewrite')}
+        >
+          重写
+        </button>
+        <button
+          className={activeTab === 'prompt' ? 'tab active' : 'tab'}
+          onClick={() => setActiveTab('prompt')}
+        >
+          生成
+        </button>
+      </div>
 
-        <h3>测试翻译功能</h3>
-        <p>输入一段文字，查看翻译结果：</p>
-        <input type="text" placeholder="例如: Hello" value={inputText} onChange={inputOnChange} />
-
-        <div>
-          <button disabled={!inputText.trim()} onClick={CallTranslate}>测试翻译</button>
-        </div>
-
-        <input type="text" readOnly value={translated} placeholder="结果" />
+      <div className="tab-content">
+        {activeTab === "translate" && <Translate />}
+        {activeTab === "rewrite" && <Rewrite />}
+        {activeTab === "prompt" && <Prompt />}
       </div>
     </div>
   )

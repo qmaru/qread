@@ -6,22 +6,6 @@ chrome.runtime.onInstalled.addListener(() => {
   })
 })
 
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.contextMenus.create({
-    id: "qred-rewrite",
-    title: "qread rewrite",
-    contexts: ["selection"]
-  })
-})
-
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.contextMenus.create({
-    id: "qred-summary",
-    title: "qread summary",
-    contexts: ["selection"]
-  })
-})
-
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   const tid = tab?.id
   if (tid) {
@@ -32,16 +16,6 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
           text: info.selectionText,
           lang: targetLang || "zh"
         })
-      })
-    } else if (info.menuItemId === "qred-rewrite") {
-      chrome.tabs.sendMessage(tid, {
-        type: "REWRITE",
-        text: info.selectionText,
-      })
-    } else if (info.menuItemId === "qred-summary") {
-      chrome.tabs.sendMessage(tid, {
-        type: "SUMMARY",
-        text: info.selectionText,
       })
     }
   }

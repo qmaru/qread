@@ -1,10 +1,11 @@
 export const localTranslate = async (text: string, targetLang: string) => {
-    const errMsg = "无法翻译，客户端不支持端侧模型"
+    let detector = null
+
     try {
         // @ts-ignore
-        await LanguageDetector.create()
+        detector = await LanguageDetector.create()
     } catch {
-        return errMsg
+        return "无法翻译，客户端不支持端侧模型"
     }
 
     let sourceLan = ""
@@ -12,7 +13,6 @@ export const localTranslate = async (text: string, targetLang: string) => {
 
     try {
         // @ts-ignore
-        const detector = await LanguageDetector.create()
         const results = await detector.detect(text)
 
         const resultTop1 = results[0]
@@ -20,7 +20,7 @@ export const localTranslate = async (text: string, targetLang: string) => {
             const confidence = resultTop1.confidence
             sourceLan = resultTop1.detectedLanguage
             if (Number(confidence) < 0.70) {
-                warnMsg = `[${sourceLan}?]`
+                warnMsg = `[${sourceLan}?] `
             }
 
             if (sourceLan === targetLang) {
