@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useTransition } from "react"
 import { localTranslate } from "../utils/translate"
 
 import "./common.css"
@@ -19,7 +19,7 @@ const Translate = () => {
   const [inputText, setInputText] = useState<string>("")
   const [inputLanguage, setInputLanguage] = useState<string>("zh")
   const [translated, setTranslated] = useState<string>("")
-  const [loading, setLoading] = useState<boolean>(false)
+  const [isTranslating, startTranslating] = useTransition()
 
   const inputOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value)
@@ -33,10 +33,10 @@ const Translate = () => {
   const CallTranslate = async () => {
     if (!inputText.trim()) return
 
-    setLoading(true)
-    const result = await localTranslate(inputText, inputLanguage)
-    setTranslated(result)
-    setLoading(false)
+    startTranslating(async () => {
+      const result = await localTranslate(inputText, inputLanguage)
+      setTranslated(result)
+    })
   }
 
   return (
@@ -62,7 +62,7 @@ const Translate = () => {
         <input type="text" placeholder="例如: Hello" value={inputText} onChange={inputOnChange} />
 
         <div>
-          <button disabled={!inputText.trim() || loading} onClick={CallTranslate}>测试翻译</button>
+          <button disabled={!inputText.trim() || isTranslating} onClick={CallTranslate}>测试翻译</button>
         </div>
 
         <input type="text" readOnly value={translated} placeholder="结果" />

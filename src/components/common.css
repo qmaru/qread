@@ -65,7 +65,7 @@
 }
 
 .chat-message {
-    display  : flex;
+    display: flex;
 }
 
 .chat-message.user {
@@ -99,6 +99,10 @@
 .chat-wrapper {
     flex      : 1;
     overflow-y: auto;
+}
+
+.chat-wrapper::-webkit-scrollbar {
+    display: none;
 }
 
 .chat-footer {

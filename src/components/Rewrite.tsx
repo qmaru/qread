@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useTransition } from "react"
 
 import { localRewrite, localSummarize } from "../utils/rewrite"
 
@@ -19,7 +19,7 @@ const Rewrite = () => {
   const [inputText, setInputText] = useState<string>("")
   const [outputStyle, setOutputStyle] = useState<string>("更简洁")
   const [outputText, setOutputText] = useState<string>("")
-  const [loading, setLoading] = useState<boolean>(false)
+  const [isRewriting, startRewriting] = useTransition()
 
   const inputOnChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputText(event.target.value)
@@ -37,16 +37,16 @@ const Rewrite = () => {
   const CallRewrite = async () => {
     if (!inputText.trim()) return
 
-    setLoading(true)
-
     let result = ""
-    if (outputStyle.includes("Summarize")) {
-      result = await localSummarize(inputText)
-    } else {
-      result = await localRewrite(inputText, outputStyle)
-    }
-    setOutputText(result)
-    setLoading(false)
+
+    startRewriting(async () => {
+      if (outputStyle.includes("Summarize")) {
+        result = await localSummarize(inputText)
+      } else {
+        result = await localRewrite(inputText, outputStyle)
+      }
+      setOutputText(result)
+    })
   }
 
   return (
@@ -70,8 +70,8 @@ const Rewrite = () => {
         <textarea placeholder="原文" onChange={inputOnChange} value={inputText} />
 
         <div className="rewrite-btn">
-          <button onClick={CallRewrite} disabled={!inputText.trim() || loading}>
-            {loading ? (
+          <button onClick={CallRewrite} disabled={!inputText.trim() || isRewriting}>
+            {isRewriting ? (
               <>
                 <span className="common-btn-loading" /> 重写中...
               </>

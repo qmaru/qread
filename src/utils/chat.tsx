@@ -1,3 +1,8 @@
+export type Message = {
+    role: "user" | "assistant"
+    content: string
+}
+
 const systemPrompt = "你是一个高效简洁的助手，只提供直接、明确、有用的回答，不啰嗦、不客套。"
 
 const createSession = async () => {
@@ -12,7 +17,7 @@ const createSession = async () => {
     }
 }
 
-export const localChatStream = async (text: string) => {
+export const localChatStream = async (text: Message[]) => {
     let session = await createSession()
     if (!session) return "无法对话，客户端不支持端侧模型"
 
@@ -20,7 +25,7 @@ export const localChatStream = async (text: string) => {
     return stream
 }
 
-export const localChat = async (text: string): Promise<string> => {
+export const localChat = async (text: Message[]): Promise<string> => {
     let session = await createSession()
     if (!session) return "无法对话，客户端不支持端侧模型"
 
