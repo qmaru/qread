@@ -43,14 +43,12 @@ const Translate = () => {
     <div className="card">
       <header>
         <h3>{chrome.i18n.getMessage("translate_element_select_label_style")}</h3>
-        <select
-          id="language"
-          value={inputLanguage}
-          onChange={inputLanguageOnChange}
-        >
+        <select id="language" value={inputLanguage} onChange={inputLanguageOnChange}>
           {languages.map((lan: languageData, index: number) => {
             return (
-              <option key={"lan" + index} value={lan.value}>{lan.label}</option>
+              <option key={"lan" + index} value={lan.value}>
+                {lan.label}
+              </option>
             )
           })}
         </select>
@@ -62,10 +60,17 @@ const Translate = () => {
         <input type="text" placeholder="Hello" value={inputText} onChange={inputOnChange} />
 
         <div>
-          <button disabled={!inputText.trim() || isTranslating} onClick={CallTranslate}>{chrome.i18n.getMessage("translate_element_button_title_test")}</button>
+          <button disabled={!inputText.trim() || isTranslating} onClick={CallTranslate}>
+            {chrome.i18n.getMessage("translate_element_button_title_test")}
+          </button>
         </div>
 
-        <input type="text" readOnly value={translated} placeholder={chrome.i18n.getMessage("translate_element_input_placeholder_title_result")} />
+        <input
+          type="text"
+          readOnly
+          value={translated}
+          placeholder={chrome.i18n.getMessage("translate_element_input_placeholder_title_result")}
+        />
       </main>
     </div>
   )

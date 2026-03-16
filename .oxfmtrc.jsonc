@@ -1,0 +1,29 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  // 每行的大致最大长度
+  "printWidth": 100,
+  // 缩进用几个空格
+  "tabWidth": 2,
+  // 缩进时是用空格（false）还是 tab（true）
+  "useTabs": false,
+  // 语句末尾是否添加分号
+  "semi": false,
+  // 字符串使用单引号（true）还是双引号（false）
+  "singleQuote": false,
+  // 对象属性名只有在必须时才加引号
+  "quoteProps": "as-needed",
+  // 对象字面量中的 { 和 } 之间是否加空格
+  "bracketSpacing": true,
+  // 多行 HTML / JSX / Vue 标签中，把 > 放在最后一行末尾，而不是另起一行
+  "bracketSameLine": false,
+  // 箭头函数参数始终加括号 (x) => x 而不是 x => x
+  "arrowParens": "always",
+  // 在多行结构（如数组 / 对象 / 参数列表等）中尽可能加尾逗号
+  "trailingComma": "all",
+  // 对 Markdown 等 prose（散文格式）内容是否自动换行
+  "proseWrap": "preserve",
+  // 是否格式化嵌入语言（例如模板字符串里的 HTML / CSS / JS）
+  "embeddedLanguageFormatting": "auto",
+  // 行尾统一使用 LF
+  "endOfLine": "lf",
+}

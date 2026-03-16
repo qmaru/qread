@@ -2,9 +2,9 @@
 
 client-side ai of gemini-nano / Phi-4-mini.
 
-+ translate api (Edge does not support)
-+ rewrite api
-+ prompt api
+- translate api (Edge does not support)
+- rewrite api
+- prompt api
 
 ## More
 

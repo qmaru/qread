@@ -52,6 +52,6 @@ chrome.runtime.onMessage.addListener(async (message) => {
 document.addEventListener("mousedown", (event) => {
   const target = event.target as HTMLElement | null
   if (!target || !target.closest(".translator-popup")) {
-    document.querySelectorAll(".translator-popup").forEach(el => el.remove())
+    document.querySelectorAll(".translator-popup").forEach((el) => el.remove())
   }
 })

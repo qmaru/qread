@@ -4,23 +4,14 @@
   "version": "1.0.0",
   "description": "__MSG_extension_description__",
   "default_locale": "en",
-  "permissions": [
-    "contextMenus",
-    "storage",
-    "scripting",
-    "activeTab"
-  ],
+  "permissions": ["contextMenus", "storage", "scripting", "activeTab"],
   "background": {
     "service_worker": "src/background.js"
   },
   "content_scripts": [
     {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "src/content.tsx"
-      ]
+      "matches": ["<all_urls>"],
+      "js": ["src/content.tsx"]
     }
   ],
   "action": {

@@ -2,7 +2,7 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "qred-translate",
     title: chrome.i18n.getMessage("translate_element_popup_title"),
-    contexts: ["selection"]
+    contexts: ["selection"],
   })
 })
 
@@ -14,7 +14,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
         chrome.tabs.sendMessage(tid, {
           type: "TRANSLATE",
           text: info.selectionText,
-          lang: targetLang || "zh"
+          lang: targetLang || "zh",
         })
       })
     }
