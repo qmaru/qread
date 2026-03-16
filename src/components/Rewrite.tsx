@@ -1,6 +1,6 @@
 import { useState, useTransition } from "react"
 
-import { localRewrite, localSummarize } from "../utils/rewrite"
+import { localRewrite, localSummarize } from "@/utils/rewrite"
 
 interface styleData {
   label: string

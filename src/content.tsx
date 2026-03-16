@@ -1,5 +1,5 @@
-import { localTranslate } from "./utils/translate"
-import "./content.css"
+import { localTranslate } from "@/utils/translate"
+import "content.css"
 
 const showTranslationPopup = (translatedText: string) => {
   const selection = window.getSelection()

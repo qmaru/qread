@@ -1,5 +1,5 @@
 import { useState, useTransition } from "react"
-import { localTranslate } from "../utils/translate"
+import { localTranslate } from "@/utils/translate"
 
 import "./common.css"
 

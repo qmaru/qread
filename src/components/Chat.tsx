@@ -1,6 +1,6 @@
 import { useRef, useState, useTransition, useEffect } from "react"
 
-import { localChatStream, type Message } from "../utils/chat"
+import { localChatStream, type Message } from "@/utils/chat"
 
 const Chat = () => {
   const [inputMessage, setInputMessage] = useState<string>("")

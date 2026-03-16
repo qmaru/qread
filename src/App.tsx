@@ -1,9 +1,9 @@
 import { useState } from "react"
-import "./App.css"
+import "App.css"
 
-import Translate from "./components/Translate"
-import Rewrite from "./components/Rewrite"
-import Chat from "./components/Chat"
+import Translate from "@/components/Translate"
+import Rewrite from "@/components/Rewrite"
+import Chat from "@/components/Chat"
 
 type Tab = "translate" | "rewrite" | "chat"
 
