@@ -35,8 +35,12 @@ export const abortLocalChat = () => {
 }
 
 export const localChatStream = async (text: Message[], monitor?: (event: any) => void) => {
-  currentSession = await createSession(monitor)
-  if (!currentSession) return chrome.i18n.getMessage("chat_message_init_error")
+  try {
+    currentSession = await createSession(monitor)
+    if (!currentSession) return chrome.i18n.getMessage("chat_message_init_error")
+  } catch {
+    return chrome.i18n.getMessage("chat_message_init_error")
+  }
 
   currentAbortController = new AbortController()
 
@@ -47,9 +51,16 @@ export const localChatStream = async (text: Message[], monitor?: (event: any) =>
   return stream
 }
 
-export const localChat = async (text: Message[], monitor?: (event: any) => void): Promise<string> => {
-  currentSession = await createSession(monitor)
-  if (!currentSession) return chrome.i18n.getMessage("chat_message_init_error")
+export const localChat = async (
+  text: Message[],
+  monitor?: (event: any) => void,
+): Promise<string> => {
+  try {
+    currentSession = await createSession(monitor)
+    if (!currentSession) return chrome.i18n.getMessage("chat_message_init_error")
+  } catch {
+    return chrome.i18n.getMessage("chat_message_init_error")
+  }
 
   currentAbortController = new AbortController()
 

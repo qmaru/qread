@@ -9,7 +9,6 @@ export const useModelMonitor = () => {
       const p = Math.min(100, e.loaded * 100)
       setProgress(p)
       setIsLoading(p < 100)
-      console.log(`Downloaded ${p}%`)
     }
 
     m.addEventListener("downloadprogress", onProgress)

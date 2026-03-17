@@ -37,14 +37,14 @@ export default function Chat() {
     const history = [...outputMessages, userMessage].slice(-6)
 
     startChating(async () => {
-      const chunks = await localChatStream(history, handleMonitor)
-
-      if (typeof chunks === "string") {
-        setOutputMessages((prev) => [...prev, { role: "assistant", content: chunks }])
-        return
-      }
-
       try {
+        const chunks = await localChatStream(history, handleMonitor)
+
+        if (typeof chunks === "string") {
+          setOutputMessages((prev) => [...prev, { role: "assistant", content: chunks }])
+          return
+        }
+
         for await (const chunk of chunks) {
           setOutputMessages((prev) => {
             const last = prev[prev.length - 1]

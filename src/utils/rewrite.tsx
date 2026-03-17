@@ -40,8 +40,7 @@ export const localRewrite = async (text: string, style: string, monitor?: (event
   try {
     currentRewriterInstance = await createRewriter(monitor)
     if (!currentRewriterInstance) return chrome.i18n.getMessage("rewrite_message_init_error")
-  } catch (e) {
-    console.error(e)
+  } catch {
     return chrome.i18n.getMessage("rewrite_message_init_error")
   }
 
@@ -64,8 +63,7 @@ export const localRewriteStream = async (
   try {
     currentRewriterInstance = await createRewriter(monitor)
     if (!currentRewriterInstance) return chrome.i18n.getMessage("rewrite_message_init_error")
-  } catch (e) {
-    console.error(e)
+  } catch {
     return chrome.i18n.getMessage("rewrite_message_init_error")
   }
 
@@ -120,8 +118,7 @@ export const localSummarize = async (
   try {
     currentSummarizerInstance = await createSummarizer(monitor)
     if (!currentSummarizerInstance) return chrome.i18n.getMessage("summarize_message_init_error")
-  } catch (e) {
-    console.error(e)
+  } catch {
     return chrome.i18n.getMessage("summarize_message_init_error")
   }
 
@@ -142,8 +139,7 @@ export const localSummarizeStream = async (
   try {
     currentSummarizerInstance = await createSummarizer(monitor)
     if (!currentSummarizerInstance) return chrome.i18n.getMessage("summarize_message_init_error")
-  } catch (e) {
-    console.error(e)
+  } catch {
     return chrome.i18n.getMessage("summarize_message_init_error")
   }
 
