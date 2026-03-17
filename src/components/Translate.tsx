@@ -1,7 +1,8 @@
 import { useState, useTransition } from "react"
 import { localTranslate } from "@/utils/translate"
 
-import "./common.css"
+import "@/styles/translate.css"
+import "@/styles/common.css"
 
 interface languageData {
   label: string
@@ -40,7 +41,7 @@ const Translate = () => {
   }
 
   return (
-    <div className="card">
+    <div>
       <header>
         <h3>{chrome.i18n.getMessage("translate_element_select_label_style")}</h3>
         <select id="language" value={inputLanguage} onChange={inputLanguageOnChange}>
@@ -54,18 +55,26 @@ const Translate = () => {
         </select>
       </header>
 
-      <main>
+      <main className="translate-main">
         <h3>{chrome.i18n.getMessage("translate_element_h3_text")}</h3>
         <p>{chrome.i18n.getMessage("translate_element_p_text")}</p>
-        <input type="text" placeholder="Hello" value={inputText} onChange={inputOnChange} />
 
-        <div>
+        <input
+          style={{ margin: 0 }}
+          type="text"
+          placeholder="Hello"
+          value={inputText}
+          onChange={inputOnChange}
+        />
+
+        <div role="group">
           <button disabled={!inputText.trim() || isTranslating} onClick={CallTranslate}>
             {chrome.i18n.getMessage("translate_element_button_title_test")}
           </button>
         </div>
 
         <input
+          style={{ margin: 0 }}
           type="text"
           readOnly
           value={translated}

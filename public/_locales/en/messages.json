@@ -9,6 +9,10 @@
     "message": "Chat",
     "description": "Chat tab"
   },
+  "chat_element_tab_desc": {
+    "message": "Ask questions or discuss any topic with AI",
+    "description": "Chat tab description"
+  },
   "chat_element_text_greeting": {
     "message": "How can I help you?",
     "description": "Homepage greeting"
@@ -16,6 +20,10 @@
   "chat_element_button_title_send": {
     "message": "Send",
     "description": "Send button"
+  },
+  "chat_element_button_title_stop": {
+    "message": "Stop",
+    "description": "Stop button"
   },
   "chat_message_system_prompt": {
     "message": "You are an efficient and concise assistant. Provide direct, clear, and useful answers only—no verbosity or pleasantries.",
@@ -28,6 +36,10 @@
   "rewrite_element_tab_title": {
     "message": "Rewrite",
     "description": "Rewrite tab"
+  },
+  "rewrite_element_tab_desc": {
+    "message": "Rewrite, polish, or improve existing text",
+    "description": "Rewrite tab description"
   },
   "rewrite_message_init_error": {
     "message": "Unable to rewrite. The client does not support on-device models.",
@@ -80,6 +92,10 @@
   "translate_element_tab_title": {
     "message": "Translate",
     "description": "Translation tab"
+  },
+  "translate_element_tab_desc": {
+    "message": "Translate text between languages",
+    "description": "Translation tab description"
   },
   "translate_element_select_label_style": {
     "message": "Select target language",

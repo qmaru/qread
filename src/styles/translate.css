@@ -1,0 +1,25 @@
+.translate-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.translate-wrapper select,
+textarea {
+    margin: 0;
+}
+
+.translate-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.translate-main h3,
+div,
+p,
+input {
+    margin: 0;
+}

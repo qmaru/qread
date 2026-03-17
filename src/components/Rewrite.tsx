@@ -2,6 +2,9 @@ import { useState, useTransition } from "react"
 
 import { localRewrite, localSummarize } from "@/utils/rewrite"
 
+import "@/styles/rewrite.css"
+import "@/styles/common.css"
+
 interface styleData {
   label: string
   value: string
@@ -67,37 +70,38 @@ const Rewrite = () => {
   }
 
   return (
-    <div className="card">
+    <div className="rewrite-wrapper">
       <header>
         <h3>{chrome.i18n.getMessage("rewrite_element_select_label_style")}</h3>
-        <select id="language" value={outputStyle} onChange={outputStyleOnChange}>
-          {styles.map((style: styleData, index: number) => {
-            return (
-              <option key={"style" + index} value={style.value}>
-                {style.label}
-              </option>
-            )
-          })}
-        </select>
+        <div>
+          <select id="language" value={outputStyle} onChange={outputStyleOnChange}>
+            {styles.map((style: styleData, index: number) => {
+              return (
+                <option key={"style" + index} value={style.value}>
+                  {style.label}
+                </option>
+              )
+            })}
+          </select>
+        </div>
       </header>
 
       <main className="rewrite-main">
-        <textarea
-          placeholder={chrome.i18n.getMessage("rewrite_element_textarea_placeholder_title_input")}
-          onChange={inputOnChange}
-          value={inputText}
-        />
+        <div>
+          <textarea
+            placeholder={chrome.i18n.getMessage("rewrite_element_textarea_placeholder_title_input")}
+            onChange={inputOnChange}
+            value={inputText}
+          />
+        </div>
 
-        <div className="rewrite-btn">
-          <button onClick={CallRewrite} disabled={!inputText.trim() || isRewriting}>
-            {isRewriting ? (
-              <>
-                <span className="common-btn-loading" />{" "}
-                {chrome.i18n.getMessage("rewrite_element_button_title_loading")}
-              </>
-            ) : (
-              chrome.i18n.getMessage("rewrite_element_button_title_title")
-            )}
+        <div role="group">
+          <button
+            onClick={CallRewrite}
+            disabled={!inputText.trim() || isRewriting}
+            aria-busy={isRewriting}
+          >
+            {chrome.i18n.getMessage("rewrite_element_button_title_title")}
           </button>
         </div>
 

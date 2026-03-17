@@ -1,0 +1,17 @@
+:root {
+  --extension-max--width: 360px;
+  --extension-max--height: 600px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: var(--extension-max--width);
+  height: var(--extension-max--height);
+  margin: 0 auto;
+  overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

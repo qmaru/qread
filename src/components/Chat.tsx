@@ -1,86 +1,116 @@
 import { useRef, useState, useTransition, useEffect } from "react"
 
-import { localChatStream, type Message } from "@/utils/chat"
+import { abortLocalChat, localChatStream, type Message } from "@/utils/chat"
+import Markdown from "react-markdown"
+
+import "@/styles/chat.css"
+import "@/styles/common.css"
 
 const Chat = () => {
-  const [inputMessage, setInputMessage] = useState<string>("")
+  const [inputMessage, setInputMessage] = useState("")
   const [outputMessages, setOutputMessages] = useState<Message[]>([])
   const [isChating, startChating] = useTransition()
+
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const inputOnChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInputMessage(event.target.value)
+  const inputOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInputMessage(e.target.value)
   }
 
-  const CallCaht = async () => {
+  const stopChat = () => {
+    abortLocalChat()
+  }
+
+  const sendMessage = async () => {
+    if (!inputMessage.trim()) return
+
+    // 如果正在生成 -> 打断
+    if (isChating) {
+      abortLocalChat()
+    }
+
     const userMessage: Message = {
       role: "user",
       content: inputMessage,
     }
+
     setOutputMessages((prev) => [...prev, userMessage])
     setInputMessage("")
 
-    // history
     const history = [...outputMessages, userMessage].slice(-6)
 
-    try {
-      startChating(async () => {
-        const chunks = await localChatStream(history)
+    startChating(async () => {
+      const chunks = await localChatStream(history)
+
+      // 初始化失败
+      if (typeof chunks === "string") {
+        setOutputMessages((prev) => [...prev, { role: "assistant", content: chunks }])
+        return
+      }
+
+      try {
         for await (const chunk of chunks) {
           setOutputMessages((prev) => {
             const last = prev[prev.length - 1]
+
             if (last?.role === "assistant") {
               return [...prev.slice(0, -1), { ...last, content: last.content + chunk }]
-            } else {
-              return [...prev, { role: "assistant", content: chunk }]
             }
+
+            return [...prev, { role: "assistant", content: chunk }]
           })
         }
-      })
-    } catch (e) {
-      console.log(e)
+      } catch {
+        // abort 会进入这里
+      }
+    })
+  }
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault()
+      sendMessage()
     }
   }
 
   useEffect(() => {
     const c = containerRef.current
-    if (c) {
-      c.scrollTo({
-        top: c.scrollHeight,
-        behavior: "smooth",
-      })
-    }
+    if (!c) return
+
+    c.scrollTop = c.scrollHeight
   }, [outputMessages])
 
   return (
-    <div className="card">
+    <div className="chat-root">
       <main className="chat-wrapper" ref={containerRef}>
-        {outputMessages.map((msg: Message, index: number) => (
-          <div
-            key={"msg" + index}
-            className={`chat-message ${msg.role === "user" ? "user" : "assistant"}`}
-          >
-            <div className="chat-bubble">{msg.content}</div>
+        {outputMessages.map((msg, index) => (
+          <div key={index} className={`chat-message ${msg.role === "user" ? "user" : "assistant"}`}>
+            <div className="chat-bubble">
+              <Markdown>{msg.content}</Markdown>
+            </div>
           </div>
         ))}
       </main>
 
       <footer className="chat-footer">
-        <div className="chat-textarea">
-          <textarea
-            placeholder={chrome.i18n.getMessage("chat_element_text_greeting")}
-            rows={1}
-            value={inputMessage}
-            onChange={inputOnChange}
-          ></textarea>
-        </div>
-        <button onClick={CallCaht} disabled={!inputMessage.trim() || isChating}>
-          {isChating ? (
-            <span className="common-btn-loading" />
-          ) : (
-            chrome.i18n.getMessage("chat_element_button_title_send")
-          )}
-        </button>
+        <textarea
+          className="chat-textarea"
+          placeholder={chrome.i18n.getMessage("chat_element_text_greeting")}
+          rows={1}
+          value={inputMessage}
+          onChange={inputOnChange}
+          onKeyDown={onKeyDown}
+        />
+
+        {isChating ? (
+          <button className="chat-button stop" onClick={stopChat}>
+            {chrome.i18n.getMessage("chat_element_button_title_stop")}
+          </button>
+        ) : (
+          <button className="chat-button" onClick={sendMessage} disabled={!inputMessage.trim()}>
+            {chrome.i18n.getMessage("chat_element_button_title_send")}
+          </button>
+        )}
       </footer>
     </div>
   )
