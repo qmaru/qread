@@ -16,13 +16,13 @@ const languages: languageData[] = [
   { label: chrome.i18n.getMessage("translate_element_select_label_France"), value: "fr" },
 ]
 
-const Translate = () => {
+export default function Translate() {
   const [inputText, setInputText] = useState<string>("")
   const [inputLanguage, setInputLanguage] = useState<string>("zh")
   const [translated, setTranslated] = useState<string>("")
   const [isTranslating, startTranslating] = useTransition()
 
-  const inputOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const inputOnChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputText(event.target.value)
     setTranslated("")
   }
@@ -43,7 +43,7 @@ const Translate = () => {
   return (
     <div>
       <header>
-        <h3>{chrome.i18n.getMessage("translate_element_select_label_style")}</h3>
+        <h6>{chrome.i18n.getMessage("translate_element_select_label_style")}</h6>
         <select id="language" value={inputLanguage} onChange={inputLanguageOnChange}>
           {languages.map((lan: languageData, index: number) => {
             return (
@@ -56,33 +56,40 @@ const Translate = () => {
       </header>
 
       <main className="translate-main">
-        <h3>{chrome.i18n.getMessage("translate_element_h3_text")}</h3>
+        <h6>{chrome.i18n.getMessage("translate_element_h3_text")}</h6>
         <p>{chrome.i18n.getMessage("translate_element_p_text")}</p>
 
-        <input
-          style={{ margin: 0 }}
-          type="text"
-          placeholder="Hello"
-          value={inputText}
-          onChange={inputOnChange}
-        />
+        <div>
+          <textarea
+            placeholder="Hello"
+            onChange={inputOnChange}
+            value={inputText}
+            rows={4}
+            cols={30}
+          />
+        </div>
 
-        <div role="group">
-          <button disabled={!inputText.trim() || isTranslating} onClick={CallTranslate}>
-            {chrome.i18n.getMessage("translate_element_button_title_test")}
+        <div role="group" className="translate-btn-group">
+          <button
+            disabled={!inputText.trim() || isTranslating}
+            onClick={CallTranslate}
+            aria-busy={isTranslating}
+          >
+            {chrome.i18n.getMessage("translate_element_button_start")}
           </button>
         </div>
 
-        <input
-          style={{ margin: 0 }}
-          type="text"
-          readOnly
-          value={translated}
-          placeholder={chrome.i18n.getMessage("translate_element_input_placeholder_title_result")}
-        />
+        <div>
+          <textarea
+            placeholder={chrome.i18n.getMessage("translate_element_input_placeholder_title_result")}
+            onChange={inputOnChange}
+            value={translated}
+            readOnly
+            rows={4}
+            cols={30}
+          />
+        </div>
       </main>
     </div>
   )
 }
-
-export default Translate

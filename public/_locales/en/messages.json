@@ -77,13 +77,21 @@
     "message": "Rewritten",
     "description": "Placeholder for rewrite output"
   },
-  "rewrite_element_button_title_loading": {
-    "message": "Rewriting...",
-    "description": "Loading prompt during rewriting"
+  "rewrite_element_textarea_placeholder_title_waiting": {
+    "message": "Waiting for rewrite result...",
+    "description": "Placeholder for rewrite waiting"
   },
-  "rewrite_element_button_title_title": {
+  "rewrite_element_button_start": {
     "message": "Start Rewriting",
     "description": "Rewrite button"
+  },
+  "rewrite_element_button_stop": {
+    "message": "Stop Rewriting",
+    "description": "Stop button"
+  },
+  "rewrite_element_button_load": {
+    "message": "Load Model",
+    "description": "Load model button"
   },
   "summarize_message_init_error": {
     "message": "Unable to summarize. The client does not support on-device models.",
@@ -109,9 +117,9 @@
     "message": "Enter text to see the translation result",
     "description": "Prompt for translation input"
   },
-  "translate_element_button_title_test": {
-    "message": "Test",
-    "description": "Test button for translation"
+  "translate_element_button_start": {
+    "message": "Translate",
+    "description": "Translate button for translation"
   },
   "translate_element_input_placeholder_title_result": {
     "message": "Result",

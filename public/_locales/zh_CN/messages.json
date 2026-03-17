@@ -77,13 +77,21 @@
     "message": "重写",
     "description": "重写输出的提示"
   },
-  "rewrite_element_button_title_loading": {
-    "message": "重写中...",
-    "description": "重写加载中的提示"
+  "rewrite_element_textarea_placeholder_title_waiting": {
+    "message": "等待重写结果...",
+    "description": "重写等待时的提示"
   },
-  "rewrite_element_button_title_title": {
+  "rewrite_element_button_start": {
     "message": "开始重写",
     "description": "重写按钮"
+  },
+  "rewrite_element_button_stop": {
+    "message": "停止重写",
+    "description": "停止按钮"
+  },
+  "rewrite_element_button_load": {
+    "message": "加载模型",
+    "description": "加载模型按钮"
   },
   "summarize_message_init_error": {
     "message": "无法总结，客户端不支持端侧模型",
@@ -109,13 +117,13 @@
     "message": "输入一段文字，查看翻译结果",
     "description": "翻译的目标语言"
   },
-  "translate_element_button_title_test": {
-    "message": "测试",
-    "description": "翻译的目标语言"
+  "translate_element_button_start": {
+    "message": "翻译",
+    "description": "翻译按钮"
   },
   "translate_element_input_placeholder_title_result": {
     "message": "结果",
-    "description": "翻译的目标语言"
+    "description": "翻译的结果的提示"
   },
   "translate_element_select_label_Chinese": {
     "message": "中文",

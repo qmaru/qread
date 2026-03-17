@@ -8,13 +8,13 @@ const systemPrompt = chrome.i18n.getMessage("chat_message_system_prompt")
 let currentSession: any = null
 let currentAbortController: AbortController | null = null
 
-const createSession = async () => {
+const createSession = async (monitor?: (event: any) => void) => {
   try {
     // @ts-ignore
-    const session = await LanguageModel.create({
+    return await LanguageModel.create({
       initialPrompts: [{ role: "system", content: systemPrompt }],
+      monitor: monitor,
     })
-    return session
   } catch {
     return null
   }
@@ -34,8 +34,8 @@ export const abortLocalChat = () => {
   }
 }
 
-export const localChatStream = async (text: Message[]) => {
-  currentSession = await createSession()
+export const localChatStream = async (text: Message[], monitor?: (event: any) => void) => {
+  currentSession = await createSession(monitor)
   if (!currentSession) return chrome.i18n.getMessage("chat_message_init_error")
 
   currentAbortController = new AbortController()
@@ -47,8 +47,8 @@ export const localChatStream = async (text: Message[]) => {
   return stream
 }
 
-export const localChat = async (text: Message[]): Promise<string> => {
-  currentSession = await createSession()
+export const localChat = async (text: Message[], monitor?: (event: any) => void): Promise<string> => {
+  currentSession = await createSession(monitor)
   if (!currentSession) return chrome.i18n.getMessage("chat_message_init_error")
 
   currentAbortController = new AbortController()

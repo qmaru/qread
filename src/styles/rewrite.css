@@ -19,3 +19,7 @@ textarea {
 button {
     margin: 0;
 }
+
+.rewrite-main textarea {
+    resize: none;
+}

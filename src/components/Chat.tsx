@@ -3,13 +3,16 @@ import { useRef, useState, useTransition, useEffect } from "react"
 import { abortLocalChat, localChatStream, type Message } from "@/utils/chat"
 import Markdown from "react-markdown"
 
+import { useModelMonitor } from "@/utils/common"
+
 import "@/styles/chat.css"
 import "@/styles/common.css"
 
-const Chat = () => {
+export default function Chat() {
   const [inputMessage, setInputMessage] = useState("")
   const [outputMessages, setOutputMessages] = useState<Message[]>([])
   const [isChating, startChating] = useTransition()
+  const { isLoading, progress, handleMonitor } = useModelMonitor()
 
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -17,17 +20,11 @@ const Chat = () => {
     setInputMessage(e.target.value)
   }
 
-  const stopChat = () => {
-    abortLocalChat()
-  }
+  const stopChat = () => abortLocalChat()
 
   const sendMessage = async () => {
     if (!inputMessage.trim()) return
-
-    // 如果正在生成 -> 打断
-    if (isChating) {
-      abortLocalChat()
-    }
+    if (isChating) stopChat()
 
     const userMessage: Message = {
       role: "user",
@@ -40,9 +37,8 @@ const Chat = () => {
     const history = [...outputMessages, userMessage].slice(-6)
 
     startChating(async () => {
-      const chunks = await localChatStream(history)
+      const chunks = await localChatStream(history, handleMonitor)
 
-      // 初始化失败
       if (typeof chunks === "string") {
         setOutputMessages((prev) => [...prev, { role: "assistant", content: chunks }])
         return
@@ -60,9 +56,7 @@ const Chat = () => {
             return [...prev, { role: "assistant", content: chunk }]
           })
         }
-      } catch {
-        // abort 会进入这里
-      }
+      } catch {}
     })
   }
 
@@ -106,6 +100,10 @@ const Chat = () => {
           <button className="chat-button stop" onClick={stopChat}>
             {chrome.i18n.getMessage("chat_element_button_title_stop")}
           </button>
+        ) : isLoading ? (
+          <button className="chat-button" onClick={sendMessage} aria-busy={isLoading}>
+            {chrome.i18n.getMessage("chat_element_button_title_send") + ` (${progress}%)`}
+          </button>
         ) : (
           <button className="chat-button" onClick={sendMessage} disabled={!inputMessage.trim()}>
             {chrome.i18n.getMessage("chat_element_button_title_send")}
@@ -115,5 +113,3 @@ const Chat = () => {
     </div>
   )
 }
-
-export default Chat
