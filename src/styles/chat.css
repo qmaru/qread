@@ -1,8 +1,9 @@
 :root {
-  --user-bg-color: #38b466;
+  --user-bg-color: rgb(144, 207, 167);
   --user-color: #000000;
   --assistant-bg-color: transparent;
   --assistant-color: #1a1a1a;
+  --border-color: #cccccc;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -11,7 +12,12 @@
     --user-color: #ffffff;
     --assistant-bg-color: transparent;
     --assistant-color: #e0e0e0;
+    --border-color: #444444;
   }
+}
+
+.chat-root {
+  padding: 0;
 }
 
 .chat-message {
@@ -29,7 +35,7 @@
 
 .chat-bubble {
   padding: 0.75rem 1rem;
-  border-radius: 1rem;
+  border-radius: var(--pico-border-radius);
   line-height: 1.5;
   max-width: 80%;
   white-space: pre-wrap;
@@ -49,7 +55,6 @@
 .chat-wrapper {
   flex: 1;
   overflow-y: auto;
-  padding: 0.75rem;
   height: 400px;
   scroll-behavior: smooth;
 }
@@ -68,7 +73,6 @@
   align-items: flex-end;
   gap: 0;
   padding: 0.5rem;
-  border-top: 1px solid var(--border-color);
 }
 
 .chat-textarea {
@@ -78,7 +82,7 @@
   padding: 8px 10px;
   border: 1px solid var(--border-color);
   border-right: none;
-  border-radius: 8px 0 0 8px;
+  border-radius: var(--pico-border-radius) 0 0 var(--pico-border-radius);
   resize: none;
   outline: none;
   overflow-y: auto;
@@ -91,7 +95,7 @@
   height: 40px;
   border: 1px solid var(--border-color);
   border-left: none;
-  border-radius: 0 8px 8px 0;
+  border-radius: 0 var(--pico-border-radius) var(--pico-border-radius) 0;
   cursor: pointer;
 }
 

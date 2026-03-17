@@ -38,7 +38,7 @@ function App() {
       <header className="container app-header">
         <h5>{getDesc()}</h5>
         {isPopup && (
-          <button type="button" className="secondary" onClick={openFullPage}>
+          <button type="button" className="outline secondary" onClick={openFullPage}>
             展开
           </button>
         )}
@@ -68,7 +68,7 @@ function App() {
         </button>
       </nav>
 
-      <main className="container">
+      <main className="app-main">
         {activeTab === "translate" && <Translate />}
         {activeTab === "rewrite" && <Rewrite />}
         {activeTab === "chat" && <Chat />}
