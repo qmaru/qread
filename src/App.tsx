@@ -7,7 +7,7 @@ import Chat from "@/components/Chat"
 
 type Tab = "translate" | "rewrite" | "chat"
 
-function App() {
+export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>("chat")
 
   const views = chrome.extension.getViews({ type: "popup" })
@@ -76,5 +76,3 @@ function App() {
     </div>
   )
 }
-
-export default App

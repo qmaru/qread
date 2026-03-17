@@ -57,10 +57,12 @@
   overflow-y: auto;
   height: 400px;
   scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .chat-wrapper::-webkit-scrollbar {
-  width: 6px;
+  display: none;
 }
 
 .chat-wrapper::-webkit-scrollbar-thumb {
@@ -138,6 +140,7 @@
 }
 
 @keyframes typing-dot {
+
   0%,
   80%,
   100% {
