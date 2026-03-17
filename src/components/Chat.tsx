@@ -12,6 +12,7 @@ export default function Chat() {
   const [inputMessage, setInputMessage] = useState("")
   const [outputMessages, setOutputMessages] = useState<Message[]>([])
   const [isChating, startChating] = useTransition()
+  const [isTyping, setIsTyping] = useState(false)
   const { isLoading, progress, handleMonitor } = useModelMonitor()
 
   const containerRef = useRef<HTMLDivElement>(null)
@@ -20,7 +21,10 @@ export default function Chat() {
     setInputMessage(e.target.value)
   }
 
-  const stopChat = () => abortLocalChat()
+  const stopChat = () => {
+    setIsTyping(false)
+    abortLocalChat()
+  }
 
   const sendMessage = async () => {
     if (!inputMessage.trim()) return
@@ -33,19 +37,37 @@ export default function Chat() {
 
     setOutputMessages((prev) => [...prev, userMessage])
     setInputMessage("")
+    setIsTyping(true)
 
     const history = [...outputMessages, userMessage].slice(-6)
 
+    let chunks = null
+    try {
+      chunks = await localChatStream(history, handleMonitor)
+    } catch {
+      setIsTyping(false)
+      setOutputMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: chrome.i18n.getMessage("chat_message_response_error") },
+      ])
+      return
+    }
+
+    if (typeof chunks === "string") {
+      setIsTyping(false)
+      setOutputMessages((prev) => [...prev, { role: "assistant", content: chunks }])
+      return
+    }
+
     startChating(async () => {
       try {
-        const chunks = await localChatStream(history, handleMonitor)
-
-        if (typeof chunks === "string") {
-          setOutputMessages((prev) => [...prev, { role: "assistant", content: chunks }])
-          return
-        }
-
+        let firstChunk = true
         for await (const chunk of chunks) {
+          if (firstChunk) {
+            setIsTyping(false)
+            firstChunk = false
+          }
+
           setOutputMessages((prev) => {
             const last = prev[prev.length - 1]
 
@@ -56,7 +78,10 @@ export default function Chat() {
             return [...prev, { role: "assistant", content: chunk }]
           })
         }
-      } catch {}
+      } catch {
+      } finally {
+        setIsTyping(false)
+      }
     })
   }
 
@@ -84,6 +109,16 @@ export default function Chat() {
             </div>
           </div>
         ))}
+
+        {isTyping && (
+          <div className="chat-message assistant typing">
+            <div className="chat-bubble typing-bubble">
+              <span className="typing-dot" />
+              <span className="typing-dot" />
+              <span className="typing-dot" />
+            </div>
+          </div>
+        )}
       </main>
 
       <footer className="chat-footer">
@@ -102,7 +137,7 @@ export default function Chat() {
           </button>
         ) : isLoading ? (
           <button className="chat-button" onClick={sendMessage} aria-busy={isLoading}>
-            {chrome.i18n.getMessage("chat_element_button_title_send") + ` (${progress}%)`}
+            {`${progress}%`}
           </button>
         ) : (
           <button className="chat-button" onClick={sendMessage} disabled={!inputMessage.trim()}>
