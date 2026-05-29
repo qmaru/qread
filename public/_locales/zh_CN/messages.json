@@ -156,5 +156,13 @@
   "translate_message_get_error": {
     "message": "翻译出错",
     "description": "翻译API错误提示"
+  },
+  "shortcut_translate_selection": {
+    "message": "框选翻译",
+    "description": "翻译选中文本的快捷键"
+  },
+  "shortcut_translate_page": {
+    "message": "整页翻译",
+    "description": "翻译整个页面的快捷键"
   }
 }

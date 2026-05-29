@@ -37,13 +37,13 @@
       "suggested_key": {
         "default": "Alt+T"
       },
-      "description": "Translate selected text"
+      "description": "__MSG_shortcut_translate_selection__"
     },
     "translate-page": {
       "suggested_key": {
         "default": "Alt+Q"
       },
-      "description": "Translate current page bilingually"
+      "description": "__MSG_shortcut_translate_page__"
     }
   }
 }

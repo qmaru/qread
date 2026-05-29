@@ -153,8 +153,12 @@
     "message": "Unable to detect language",
     "description": "Language detection error"
   },
-  "translate_message_get_error": {
-    "message": "Translation error",
-    "description": "Translation API error"
+  "shortcut_translate_selection": {
+    "message": "Translate Selection",
+    "description": "Shortcut for translating the selected text"
+  },
+  "shortcut_translate_page": {
+    "message": "Translate Page",
+    "description": "Shortcut for translating the entire page"
   }
 }
