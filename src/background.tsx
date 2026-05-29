@@ -1,7 +1,11 @@
-type TranslateMessage = {
+type TranslateSelectionMessage = {
   type: "TRANSLATE"
   text: string
   lang: string
+}
+
+type TranslatePageMessage = {
+  type: "TRANSLATE_PAGE"
 }
 
 const getSelectedText = async (tabId: number) => {
@@ -11,6 +15,15 @@ const getSelectedText = async (tabId: number) => {
   })
 
   return String(result ?? "").trim()
+}
+
+const getActiveTabId = async () => {
+  const [tab] = await chrome.tabs.query({
+    active: true,
+    currentWindow: true,
+  })
+
+  return tab?.id ?? null
 }
 
 chrome.runtime.onInstalled.addListener(() => {
@@ -24,10 +37,14 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   if (info.menuItemId !== "qred-translate") return
   if (!tab?.id) return
+
   const text = String(info.selectionText ?? "").trim() || (await getSelectedText(tab.id))
+
   if (!text) return
+
   const { targetLang } = await chrome.storage.sync.get(["targetLang"])
-  const message: TranslateMessage = {
+
+  const message: TranslateSelectionMessage = {
     type: "TRANSLATE",
     text,
     lang: String(targetLang ?? "zh"),
@@ -37,25 +54,30 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 })
 
 chrome.commands.onCommand.addListener(async (command) => {
-  if (command !== "translate-selection") return
+  const tabId = await getActiveTabId()
+  if (!tabId) return
 
-  const [tab] = await chrome.tabs.query({
-    active: true,
-    currentWindow: true,
-  })
+  if (command === "translate-selection") {
+    const text = await getSelectedText(tabId)
+    if (!text) return
 
-  if (!tab?.id) return
+    const { targetLang } = await chrome.storage.sync.get(["targetLang"])
 
-  const text = await getSelectedText(tab.id)
-  if (!text) return
+    const message: TranslateSelectionMessage = {
+      type: "TRANSLATE",
+      text,
+      lang: String(targetLang ?? "zh"),
+    }
 
-  const { targetLang } = await chrome.storage.sync.get(["targetLang"])
-
-  const message: TranslateMessage = {
-    type: "TRANSLATE",
-    text,
-    lang: String(targetLang ?? "zh"),
+    chrome.tabs.sendMessage(tabId, message)
+    return
   }
 
-  chrome.tabs.sendMessage(tab.id, message)
+  if (command === "translate-page") {
+    const message: TranslatePageMessage = {
+      type: "TRANSLATE_PAGE",
+    }
+
+    chrome.tabs.sendMessage(tabId, message)
+  }
 })

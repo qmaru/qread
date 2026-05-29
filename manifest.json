@@ -4,14 +4,23 @@
   "version": "2.0.0",
   "description": "__MSG_extension_description__",
   "default_locale": "en",
-  "permissions": ["contextMenus", "storage", "scripting", "activeTab"],
+  "permissions": [
+    "contextMenus",
+    "storage",
+    "scripting",
+    "activeTab"
+  ],
   "background": {
     "service_worker": "src/background.js"
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["src/content.tsx"]
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "src/content.tsx"
+      ]
     }
   ],
   "action": {
@@ -29,6 +38,12 @@
         "default": "Alt+T"
       },
       "description": "Translate selected text"
+    },
+    "translate-page": {
+      "suggested_key": {
+        "default": "Alt+Q"
+      },
+      "description": "Translate current page bilingually"
     }
   }
 }

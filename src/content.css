@@ -16,6 +16,15 @@
   display: block;
 }
 
+.translator-bilingual {
+  margin: 6px 0 12px;
+  padding-left: 12px;
+  border-left: 3px solid #ddd;
+  color: #666;
+  font-size: 0.95em;
+  line-height: 1.6;
+}
+
 .popup-content {
   margin-bottom: 10px;
 }
