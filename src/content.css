@@ -14,6 +14,11 @@
   animation: fadeIn 0.2s ease-out;
 }
 
+.translator-trigger {
+  user-select: none;
+  border-radius: 50%;
+}
+
 .popup-content {
   margin-bottom: 10px;
 }
