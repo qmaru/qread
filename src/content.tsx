@@ -8,35 +8,63 @@ const removeTranslateButton = () => {
   translateButton = null
 }
 
+const getSelectionRect = (range: Range) => {
+  const rects = Array.from(range.getClientRects()).filter((r) => r.width > 0 && r.height > 0)
+
+  return rects.length ? rects[rects.length - 1] : range.getBoundingClientRect()
+}
+
 const showTranslationPopup = (translatedText: string) => {
   const selection = window.getSelection()
-
-  if (!selection || !selection.rangeCount) {
-    return
-  }
+  if (!selection?.rangeCount) return
 
   const range = selection.getRangeAt(0)
-  const rect = range.getBoundingClientRect()
+  const rect = getSelectionRect(range)
+
+  document.querySelectorAll(".translator-popup").forEach((el) => el.remove())
 
   const div = document.createElement("div")
-
-  div.style.top = `${rect.top + window.scrollY - 40}px`
-  div.style.left = `${rect.left + window.scrollX}px`
-
-  div.innerText = translatedText
   div.className = "translator-popup"
+  div.innerText = translatedText
 
-  div.addEventListener("mousedown", (e) => {
-    e.stopPropagation()
-  })
+  div.style.position = "fixed"
+  div.style.visibility = "hidden"
+  div.style.zIndex = "2147483647"
+  div.style.pointerEvents = "auto"
+  div.style.left = "12px"
+  div.style.top = "12px"
+  div.style.maxWidth = "min(420px, calc(100vw - 24px))"
+  div.style.maxHeight = "calc(100vh - 24px)"
+  div.style.overflow = "auto"
+  div.style.whiteSpace = "pre-wrap"
+  div.style.wordBreak = "break-word"
 
-  div.addEventListener("click", (e) => {
-    e.stopPropagation()
-  })
+  div.addEventListener("mousedown", (e) => e.stopPropagation())
+  div.addEventListener("click", (e) => e.stopPropagation())
 
   document.body.appendChild(div)
 
-  let autoRemoveTimer = setTimeout(() => {
+  const gap = 8
+  const padding = 12
+  const popupRect = div.getBoundingClientRect()
+
+  const left = Math.min(
+    Math.max(rect.left, padding),
+    Math.max(padding, window.innerWidth - popupRect.width - padding),
+  )
+
+  const top = rect.bottom + gap
+
+  div.style.left = `${left}px`
+  div.style.top = `${top}px`
+  div.style.visibility = "visible"
+
+  const maxHeight = window.innerHeight - top - padding
+  if (maxHeight > 0) {
+    div.style.maxHeight = `${maxHeight}px`
+  }
+
+  let autoRemoveTimer = window.setTimeout(() => {
     div.remove()
   }, 5000)
 
@@ -45,7 +73,7 @@ const showTranslationPopup = (translatedText: string) => {
   })
 
   div.addEventListener("mouseleave", () => {
-    autoRemoveTimer = setTimeout(() => {
+    autoRemoveTimer = window.setTimeout(() => {
       div.remove()
     }, 3000)
   })
