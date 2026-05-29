@@ -1,22 +1,19 @@
 .translator-popup {
-  position: absolute;
-  background: #ffffff;
-  color: #1a1a1a;
-  padding: 14px 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: var(--pico-border-radius);
-  z-index: 9999;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  max-width: 360px;
-  font-size: 15px;
-  line-height: 1.7;
-  word-wrap: break-word;
-  animation: fadeIn 0.2s ease-out;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow:
+    0 8px 24px rgb(0 0 0 / 12%),
+    0 2px 8px rgb(0 0 0 / 8%);
 }
 
-.translator-trigger {
-  user-select: none;
-  border-radius: 50%;
+.translator-popup-body {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.translator-trigger img {
+  display: block;
 }
 
 .popup-content {

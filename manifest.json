@@ -22,5 +22,13 @@
     "32": "icon_32.png",
     "64": "icon_64.png",
     "128": "icon_128.png"
+  },
+  "commands": {
+    "translate-selection": {
+      "suggested_key": {
+        "default": "Alt+T"
+      },
+      "description": "Translate selected text"
+    }
   }
 }

@@ -1,11 +1,17 @@
 import { localTranslate } from "@/utils/translate"
-import "content.css"
+import "@/content.css"
 
 let translateButton: HTMLDivElement | null = null
+let currentPopup: HTMLDivElement | null = null
 
 const removeTranslateButton = () => {
   translateButton?.remove()
   translateButton = null
+}
+
+const removePopup = () => {
+  currentPopup?.remove()
+  currentPopup = null
 }
 
 const getSelectionRect = (range: Range) => {
@@ -16,81 +22,82 @@ const getSelectionRect = (range: Range) => {
 
 const showTranslationPopup = (translatedText: string) => {
   const selection = window.getSelection()
-  if (!selection?.rangeCount) return
+
+  if (!selection?.rangeCount) {
+    return
+  }
+
+  removePopup()
 
   const range = selection.getRangeAt(0)
   const rect = getSelectionRect(range)
 
-  document.querySelectorAll(".translator-popup").forEach((el) => el.remove())
+  const popup = document.createElement("div")
 
-  const div = document.createElement("div")
-  div.className = "translator-popup"
-  div.innerText = translatedText
+  popup.className = "translator-popup"
 
-  div.style.position = "fixed"
-  div.style.visibility = "hidden"
-  div.style.zIndex = "2147483647"
-  div.style.pointerEvents = "auto"
-  div.style.left = "12px"
-  div.style.top = "12px"
-  div.style.maxWidth = "min(420px, calc(100vw - 24px))"
-  div.style.maxHeight = "calc(100vh - 24px)"
-  div.style.overflow = "auto"
-  div.style.whiteSpace = "pre-wrap"
-  div.style.wordBreak = "break-word"
+  popup.style.position = "fixed"
+  popup.style.visibility = "hidden"
+  popup.style.left = "0"
+  popup.style.top = "0"
+  popup.style.zIndex = "2147483647"
+  popup.style.maxWidth = "min(420px, calc(100vw - 24px))"
+  popup.style.maxHeight = "calc(100vh - 24px)"
+  popup.style.overflow = "auto"
+  popup.style.whiteSpace = "pre-wrap"
+  popup.style.wordBreak = "break-word"
 
-  div.addEventListener("mousedown", (e) => e.stopPropagation())
-  div.addEventListener("click", (e) => e.stopPropagation())
+  const body = document.createElement("div")
 
-  document.body.appendChild(div)
+  body.className = "translator-popup-body"
+  body.textContent = translatedText
+
+  popup.appendChild(body)
+
+  document.body.appendChild(popup)
+
+  const popupRect = popup.getBoundingClientRect()
 
   const gap = 8
   const padding = 12
-  const popupRect = div.getBoundingClientRect()
 
   const left = Math.min(
     Math.max(rect.left, padding),
     Math.max(padding, window.innerWidth - popupRect.width - padding),
   )
 
-  const top = rect.bottom + gap
+  let top = rect.bottom + gap
 
-  div.style.left = `${left}px`
-  div.style.top = `${top}px`
-  div.style.visibility = "visible"
-
-  const maxHeight = window.innerHeight - top - padding
-  if (maxHeight > 0) {
-    div.style.maxHeight = `${maxHeight}px`
+  if (top + popupRect.height + padding > window.innerHeight) {
+    top = Math.max(padding, rect.top - popupRect.height - gap)
   }
 
-  let autoRemoveTimer = window.setTimeout(() => {
-    div.remove()
-  }, 5000)
+  popup.style.left = `${left}px`
+  popup.style.top = `${top}px`
+  popup.style.visibility = "visible"
 
-  div.addEventListener("mouseenter", () => {
-    clearTimeout(autoRemoveTimer)
-  })
+  const maxHeight = window.innerHeight - top - padding
 
-  div.addEventListener("mouseleave", () => {
-    autoRemoveTimer = window.setTimeout(() => {
-      div.remove()
-    }, 3000)
-  })
+  if (maxHeight > 0) {
+    popup.style.maxHeight = `${maxHeight}px`
+  }
+
+  currentPopup = popup
 }
 
 chrome.runtime.onMessage.addListener(async (message) => {
-  if (message.type === "TRANSLATE") {
-    const text = message.text
-    const lang = message.lang
+  if (message.type !== "TRANSLATE") {
+    return
+  }
 
-    try {
-      const translated = await localTranslate(text, lang)
-      showTranslationPopup(translated)
-    } catch (e) {
-      const errmsg = chrome.i18n.getMessage("translate_message_get_error")
-      console.error(errmsg + ": ", e)
-    }
+  try {
+    const translated = await localTranslate(message.text, message.lang)
+
+    showTranslationPopup(translated)
+  } catch (e) {
+    const errmsg = chrome.i18n.getMessage("translate_message_get_error")
+
+    console.error(errmsg + ":", e)
   }
 })
 
@@ -104,14 +111,7 @@ document.addEventListener("mouseup", (e) => {
   setTimeout(() => {
     const selection = window.getSelection()
 
-    if (!selection || !selection.rangeCount) {
-      removeTranslateButton()
-      return
-    }
-
-    const rect = selection.getRangeAt(0).getBoundingClientRect()
-
-    if (!selection || !selection.rangeCount) {
+    if (!selection?.rangeCount) {
       removeTranslateButton()
       return
     }
@@ -123,14 +123,16 @@ document.addEventListener("mouseup", (e) => {
       return
     }
 
+    const rect = getSelectionRect(selection.getRangeAt(0))
+
     removeTranslateButton()
 
     const wrapper = document.createElement("div")
-    wrapper.className = "translator-trigger"
 
+    wrapper.className = "translator-trigger"
     wrapper.style.position = "absolute"
-    wrapper.style.left = `${rect.right + window.scrollX + 6}px`
-    wrapper.style.top = `${rect.top + window.scrollY - 4}px`
+    wrapper.style.left = `${rect.right + window.scrollX + 8}px`
+    wrapper.style.top = `${rect.top + window.scrollY - 0}px`
     wrapper.style.zIndex = "2147483647"
     wrapper.style.cursor = "pointer"
     wrapper.style.lineHeight = "0"
@@ -145,6 +147,7 @@ document.addEventListener("mouseup", (e) => {
     button.style.boxShadow = "none"
     button.style.background = "transparent"
     button.draggable = false
+
     wrapper.appendChild(button)
 
     wrapper.addEventListener("mousedown", (ev) => {
@@ -164,7 +167,8 @@ document.addEventListener("mouseup", (e) => {
         showTranslationPopup(translated)
       } catch (err) {
         const errmsg = chrome.i18n.getMessage("translate_message_get_error")
-        console.error(errmsg + ": ", err)
+
+        console.error(errmsg + ":", err)
       }
 
       removeTranslateButton()
@@ -176,14 +180,29 @@ document.addEventListener("mouseup", (e) => {
   }, 0)
 })
 
-document.addEventListener("mousedown", (event) => {
-  const target = event.target as HTMLElement | null
+document.addEventListener(
+  "mousedown",
+  (event) => {
+    const target = event.target as HTMLElement | null
 
-  if (!target || !target.closest(".translator-popup")) {
-    document.querySelectorAll(".translator-popup").forEach((el) => el.remove())
-  }
+    if (!target?.closest(".translator-popup")) {
+      removePopup()
+    }
 
-  if (!target || !target.closest(".translator-trigger")) {
-    removeTranslateButton()
-  }
-})
+    if (!target?.closest(".translator-trigger")) {
+      removeTranslateButton()
+    }
+  },
+  true,
+)
+
+window.addEventListener(
+  "keydown",
+  (event) => {
+    if (event.key === "Escape") {
+      removePopup()
+      removeTranslateButton()
+    }
+  },
+  true,
+)

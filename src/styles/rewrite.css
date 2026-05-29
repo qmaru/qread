@@ -1,25 +1,25 @@
 .rewrite-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .rewrite-wrapper select,
 textarea {
-    margin: 0;
+  margin: 0;
 }
 
 .rewrite-main {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .rewrite-main div,
 button {
-    margin: 0;
+  margin: 0;
 }
 
 .rewrite-main textarea {
-    resize: none;
+  resize: none;
 }
