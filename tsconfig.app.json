@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
     "paths": {
       "@/*": [
-        "*"
-      ],
+        "./src/*"
+      ]
     },
+    "types": [
+      "chrome"
+    ],
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2020",
     "useDefineForClassFields": true,
